@@ -33,7 +33,7 @@ def extract_transaction_details(body):
         'transaction_id': None
     }
 
-    # Extract transaction type
+    #transaction type
     if "received" in body:
         details['transaction_type'] = "Incoming Money"
     elif "payment" in body:
@@ -43,27 +43,27 @@ def extract_transaction_details(body):
     elif "transferred" in body:
         details['transaction_type'] = "Transfer"
 
-    # Extract amount
+    #amount
     amount_match = re.search(r'(\d{1,3}(?:,\d{3})*(?:\.\d{2})?) RWF', body)
     if amount_match:
         details['amount'] = int(amount_match.group(1).replace(',', ''))
 
-    # Extract sender/receiver
+    #sender/receiver
     sender_receiver_match = re.search(r'from|to (\w+ \w+)', body)
     if sender_receiver_match:
         details['sender_receiver'] = sender_receiver_match.group(1)
 
-    # Extract date and time
+    #date and time
     date_time_match = re.search(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}', body)
     if date_time_match:
         details['date_time'] = date_time_match.group(0)
 
-    # Extract balance
+    #balance
     balance_match = re.search(r'balance: (\d{1,3}(?:,\d{3})*(?:\.\d{2})?) RWF', body)
     if balance_match:
         details['balance'] = int(balance_match.group(1).replace(',', ''))
 
-    # Extract transaction ID
+    #transaction ID
     tx_id_match = re.search(r'TxId: (\d+)', body)
     if tx_id_match:
         details['transaction_id'] = tx_id_match.group(1)
