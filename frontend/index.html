@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoMo Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <img src="images/Logo.png" class="logo">
+        <div class="nav-item">Dashboard</div>
+    </div>
+    
+    <div class="main-content">
+        <header class="header">
+            <div>
+                <h1 class="title">Expenses</h1>
+                <div class="subtitle">Dashboard</div>
+            </div>
+            <div class="filters">
+                <input type="text" placeholder="Search transactions">
+                <select>
+                    <option value="all">All Categories</option>
+                    <option value="in">Money In</option>
+                    <option value="out">Money Out</option>
+                </select>
+                <input type="date">
+            </div>
+        </header>
+        
+        <section class="charts-grid">
+            <div class="chart-card">
+                <h3 class="chart-title">Monthly Expenses</h3>
+                <canvas id="expensesChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3 class="chart-title">Expense Distribution</h3>
+                <canvas id="distributionChart"></canvas>
+            </div>
+        </section>
+        
+        <section class="transactions">
+            <h3 class="chart-title">Recent Transactions</h3>
+            <div id="transactionsList"></div>
+        </section>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
