@@ -1,85 +1,83 @@
 import xml.etree.ElementTree as ET
-import logging
 import re
+from datetime import datetime
+import sqlite3
 
-logging.basicConfig(filename='logs/unprocessed.log', level=logging.INFO)
+def extract_transaction_data(xml_file):
+    transactions = []
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
 
-def parse_xml(file_path):
-    try:
-        tree = ET.parse(file_path)
-        root = tree.getroot()
-        messages = []
-        for sms in root.findall('sms'):
-            message = {
-                'address': sms.attrib.get('address'),
-                'date': sms.attrib.get('date'),
-                'type': sms.attrib.get('type'),
-                'body': sms.attrib.get('body'),
-                'readable_date': sms.attrib.get('readable_date')
-            }
-            messages.append(message)
-        return messages
-    except Exception as e:
-        logging.error(f"Error parsing XML: {e}")
-        return []
+    for sms in root.findall('sms'):
+        body = sms.get('body')
+        try:
+            transaction = parse_transaction(body)
+            if transaction:
+                transactions.append(transaction)
+        except Exception as e:
+            print(f"Error parsing SMS: {body[:50]}... - Error: {e}")
 
-def extract_transaction_details(body):
-    details = {
-        'transaction_type': None,
-        'amount': None,
-        'sender_receiver': None,
-        'date_time': None,
-        'balance': None,
-        'transaction_id': None
-    }
+    return transactions
 
-    #transaction type
+def parse_transaction(body):
     if "received" in body:
-        details['transaction_type'] = "Incoming Money"
-    elif "payment" in body:
-        details['transaction_type'] = "Payment"
-    elif "deposit" in body:
-        details['transaction_type'] = "Bank Deposit"
+        match = re.search(r"You have received (.+?) RWF from (.+?) \((.*?)\) on your mobile money account at (.+?)\.", body)
+        if match:
+            amount = float(match.group(1).replace(",", ""))
+            sender = match.group(2).strip()
+            sender_phone = match.group(3).strip()
+            timestamp_str = match.group(4)
+            transaction_type = "receive"
+            transaction_id = None
+
+    elif "payment" in body and "completed" in body:
+        match = re.search(r"TxId: (.+?)\. Your payment of (.+?) RWF to (.+?) (.+?) has been completed at (.+?)\.", body)
+        if match:
+            transaction_id = match.group(1).strip()
+            amount = float(match.group(2).replace(",", ""))
+            recipient = match.group(3).strip()
+            recipient_info = match.group(4).strip()
+            timestamp_str = match.group(5)
+            transaction_type = "payment"
+
     elif "transferred" in body:
-        details['transaction_type'] = "Transfer"
+        match = re.search(r"\*165\*S\*(.+) RWF transferred to (.+?) \((.*?)\) from (.+?) at (.+?) \. Fee was: (.+?) RWF", body)
+        if match:
+            amount = float(match.group(1).replace(",", ""))
+            recipient = match.group(2).strip()
+            recipient_phone = match.group(3).strip()
+            sender_info = match.group(4).strip()
+            timestamp_str = match.group(5)
+            fee = float(match.group(6).replace(",", "")) if match.group(6) else 0.0
+            transaction_type = "transfer"
+            transaction_id = None
 
-    #amount
-    amount_match = re.search(r'(\d{1,3}(?:,\d{3})*(?:\.\d{2})?) RWF', body)
-    if amount_match:
-        details['amount'] = int(amount_match.group(1).replace(',', ''))
+    elif "bank deposit" in body:
+        match = re.search(r"bank deposit of (.+?) RWF has been added to your mobile money account at (.+?)\.", body)
+        if match:
+            amount = float(match.group(1).replace(",", ""))
+            timestamp_str = match.group(2)
+            transaction_type = "deposit"
+            transaction_id = None
 
-    #sender/receiver
-    sender_receiver_match = re.search(r'from|to (\w+ \w+)', body)
-    if sender_receiver_match:
-        details['sender_receiver'] = sender_receiver_match.group(1)
+    else:
+        return None
 
-    #date and time
-    date_time_match = re.search(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}', body)
-    if date_time_match:
-        details['date_time'] = date_time_match.group(0)
+    try:
+        timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        timestamp = datetime.now()
 
-    #balance
-    balance_match = re.search(r'balance: (\d{1,3}(?:,\d{3})*(?:\.\d{2})?) RWF', body)
-    if balance_match:
-        details['balance'] = int(balance_match.group(1).replace(',', ''))
-
-    #transaction ID
-    tx_id_match = re.search(r'TxId: (\d+)', body)
-    if tx_id_match:
-        details['transaction_id'] = tx_id_match.group(1)
-
-    return details
-
-def clean_and_categorize(messages):
-    cleaned_data = []
-    for msg in messages:
-        if not msg['body']:
-            logging.info(f"Skipping incomplete message: {msg}")
-            continue
-        transaction_details = extract_transaction_details(msg['body'])
-        if not transaction_details['transaction_type']:
-            logging.info(f"Skipping uncategorized message: {msg}")
-            continue
-        msg.update(transaction_details)
-        cleaned_data.append(msg)
-    return cleaned_data
+    transaction = {
+        "amount": amount,
+        "type": transaction_type,
+        "timestamp": timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+        "transaction_id": transaction_id,
+        "sender": sender if "sender" in locals() else None,
+        "sender_phone": sender_phone if "sender_phone" in locals() else None,
+        "recipient": recipient if "recipient" in locals() else None,
+        "recipient_info": recipient_info if "recipient_info" in locals() else None,
+        "recipient_phone": recipient_phone if "recipient_phone" in locals() else None,
+        "fee": fee if "fee" in locals() else 0.0,
+    }
+    return transaction
