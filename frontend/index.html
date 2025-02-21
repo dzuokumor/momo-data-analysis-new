@@ -9,14 +9,17 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+    <!-- Sidebar -->
     <div class="sidebar">
-        <img src="/api/placeholder/40/40" alt="MoMo Logo" class="logo">
+        <img src="images/Logo.png" class="logo" alt="Logo">
         <a href="index.html" class="nav-item">Dashboard</a>
         <a href="summary.html" class="nav-item">Summary</a>
-        <div class="nav-item">Exit</div>
+        <a href="https://www.google.com" class="nav-item">Exit</a>
     </div>
 
+    <!-- Main Content -->
     <div class="main-content">
+        <!-- Header -->
         <div class="header">
             <div>
                 <h1 class="title">Expenses</h1>
@@ -41,14 +44,49 @@
             </div>
             <div class="chart-card">
                 <h3 class="chart-title">Expense Distribution</h3>
-                <canvas id="distributionChart"></canvas> <!-- Doughnut Chart -->
+                <canvas id="distributionChart"></canvas> <!-- Pie Chart -->
             </div>
         </div>
 
         <!-- Transactions List -->
         <div class="transactions">
-            <h3 class="chart-title">Recent transactions</h3>
-            <div id="transactionsList"></div>
+            <h3 class="chart-title">Recent Transactions</h3>
+            <div id="transactionsList">
+                <!-- Example Transactions -->
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon">S</div>
+                        <div class="transaction-details">
+                            <h4>Send Money</h4>
+                            <p>Wakuma</p>
+                        </div>
+                    </div>
+                    <div class="amount negative">-RWF 15000.00</div>
+                    <div class="time">02:45 AM</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon">R</div>
+                        <div class="transaction-details">
+                            <h4>Received</h4>
+                            <p>Wakuma</p>
+                        </div>
+                    </div>
+                    <div class="amount positive">+RWF 40000.00</div>
+                    <div class="time">12:55 PM</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon">A</div>
+                        <div class="transaction-details">
+                            <h4>Airtime</h4>
+                            <p>079****952</p>
+                        </div>
+                    </div>
+                    <div class="amount negative">-RWF 5000.00</div>
+                    <div class="time">10:26 AM</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
