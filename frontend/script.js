@@ -38,4 +38,8 @@ const distributionChart = new Chart(document.getElementById("distributionChart")
     options: {
         responsive: true,
     },
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 37616bef472042491c83770a5c7054eaccee9efd
