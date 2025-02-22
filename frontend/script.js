@@ -36,10 +36,11 @@ const distributionChart = new Chart(document.getElementById("distributionChart")
     type: "pie", // Changed to pie chart
     data: distributionData,
     options: {
-        responsive: true,
-    },
-<<<<<<< HEAD
+        plugins: {
+            legend: {
+                position: 'right' // Legend position
+            }
+        },
+        cutout: '60%' // Size of the inner hole in the doughnut chart
+    }
 });
-=======
-});
->>>>>>> 37616bef472042491c83770a5c7054eaccee9efd
