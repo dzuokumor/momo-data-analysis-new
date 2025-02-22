@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoMo Summary</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <img src="images/Logo.png" class="logo" alt="Logo">
+        <a href="index.html" class="nav-item">Dashboard</a>
+        <a href="summary.html" class="nav-item">Summary</a>
+        <a href="https://www.google.com" class="nav-item">Exit</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header-card"> <!-- Header as a card -->
+            <h1 class="title">Summary</h1>
+            <div class="subtitle">Key Metrics Overview</div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <!-- Card 1: Highest Sender -->
+            <div class="summary-card">
+                <h3>Highest Sender</h3>
+                <p class="summary-value" id="highest-sender">Loading...</p>
+            </div>
+
+            <!-- Card 2: Total Transaction Volume -->
+            <div class="summary-card">
+                <h3>Total Volume</h3>
+                <p class="summary-value" id="total-volume">Loading...</p>
+            </div>
+
+            <!-- Card 3: Average Transaction Size -->
+            <div class="summary-card">
+                <h3>Avg. Transaction Size</h3>
+                <p class="summary-value" id="avg-size">Loading...</p>
+            </div>
+
+            <!-- Card 4: Total Transactions -->
+            <div class="summary-card">
+                <h3>Total Transactions</h3>
+                <p class="summary-value" id="total-transactions">Loading...</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
