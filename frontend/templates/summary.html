@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoMo Summary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="../static/script.js" defer></script>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="{{ url_for('static', filename='images/Logo.png') }}" class="logo" alt="Logo">
+        <a href="{{ url_for('home') }}" class="nav-item">Dashboard</a>
+        <a href="{{ url_for('summary') }}" class="nav-item">Summary</a>
+        <a href="https://www.google.com" class="nav-item">Exit</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-card">
+            <h1 class="title">Summary</h1>
+            <div class="subtitle">Key Metrics Overview</div>
+        </div>
+
+        <div class="summary-cards">
+            <div class="summary-card">
+                <h3>Highest Recipient</h3>
+                <p class="summary-value" id="highest-sender">John Doe. Count: 143</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>Total Volume</h3>
+                <p class="summary-value" id="total-volume">15823566.0</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>Avg. Balance</h3>
+                <p class="summary-value" id="avg-size">33532.15121412803</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>Total Transactions Sent</h3>
+                <p class="summary-value" id="total-transactions">906</p>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

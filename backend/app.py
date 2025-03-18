@@ -1,13 +1,11 @@
 from pathlib import Path
 from flask import Flask, jsonify, make_response, render_template
-from .data_processing import extract_transaction_data
-from .database import create_database, insert_transactions
+from backend.data_processing import extract_transaction_data
+from backend.database import create_database, insert_transactions
 import sqlite3
 import os
 
-app = Flask(__name__,
-            template_folder=str(Path(__file__).parent.parent / "frontend"),
-            static_folder=str(Path(__file__).parent.parent / "frontend"))
+app = Flask(__name__, template_folder="../frontend/templates", static_folder="../frontend/static")
 
 DB_NAME = str(Path(__file__).parent.parent / "database" / "momo.db")
 XML_FILE = str(Path(__file__).parent.parent / "data" / "modified_sms_v2.xml")
@@ -15,8 +13,12 @@ LOG_DIR = str(Path(__file__).parent.parent / "log")
 RESULTS_FILE = os.path.join(LOG_DIR, "results.txt")
 
 @app.route('/')
-def dashboard():
+def home():
     return render_template("index.html")
+
+@app.route('/api/summary')
+def summary():
+    return render_template("summary.html")
 
 @app.route('/api/transactions')
 def get_transactions():
