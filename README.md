@@ -42,7 +42,7 @@ This application parses XML SMS transaction data, categorizes messages into tran
 1. Clone the repository:
    ```
    git clone https://github.com/yourusername/momo-data-analysis-new.git
-   cd sms-transaction-dashboard
+   cd momo-data-analysis-new
    ```
 
 2. Install Python dependencies:
