@@ -21,7 +21,6 @@ This application parses XML SMS transaction data, categorizes messages into tran
   - Bank Transfers
   - Internet and Voice Bundle Purchases
 - **Dashboard**: Interactive visualization of transaction data
-- **Search & Filter**: Find transactions by type, date, or amount
 
 ## Tech Stack
 
@@ -34,7 +33,7 @@ This application parses XML SMS transaction data, categorizes messages into tran
 
 ### Prerequisites
 
-- Python 3.7+
+- Python 3.11+
 - Web browser with JavaScript enabled
 - XML data file containing SMS transactions
 
@@ -42,8 +41,8 @@ This application parses XML SMS transaction data, categorizes messages into tran
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/sms-transaction-dashboard.git
-   cd sms-transaction-dashboard
+   git clone https://github.com/yourusername/momo-data-analysis-new.git
+   cd momo-data-analysis-new
    ```
 
 2. Install Python dependencies:
@@ -61,30 +60,49 @@ This application parses XML SMS transaction data, categorizes messages into tran
    python scripts/process_data.py --input data/your_xml_file.xml
    ```
 
-2. Open the dashboard:
+2. Run the app.py file:
    ```
-   python -m http.server 8000
+   Navigate to the project root.
+   Run: python -m backend.app 
    ```
 
-3. Visit `http://localhost:8000` in your browser
+3. Visit `http://localhost:5000` in your browser
 
 ## Project Structure
 
 ```
-sms-transaction-dashboard/
-├── data/                # Data storage
-│   └── transactions.xml # Input XML file
-├── scripts/             # Processing scripts
-│   ├── process_data.py  # Main data processing script
-│   └── db_utils.py      # Database utilities
-├── db/                  # Database files
-│   └── transactions.db  # SQLite database
-├── static/              # Static assets
-│   ├── css/             # Stylesheets
-│   ├── js/              # JavaScript files
-│   └── img/             # Images
-├── index.html           # Main dashboard page
-└── README.md            # This file
+MOMO-DATA-ANALYSIS/
+│
+├── __pycache__/
+├── .idea/
+├── .venv/
+│
+├── backend/
+│
+├── data/
+│   ├── modified_sms_v2.xml
+│
+├── database/
+│   ├── clean_database.py
+│   ├── momo.db
+│
+├── frontend/
+│   ├── static/
+│   │   ├── images/
+│   │   ├── main.css
+│   │   ├── main.js
+│   │   ├── summary.js
+│   │
+│   ├── templates/
+│       ├── index.html
+│       ├── summary.html
+│
+├── log/
+│
+├── __init__.py
+├── .gitignore
+├── README.md
+
 ```
 
 ## Usage
@@ -99,33 +117,31 @@ The application processes XML data with the following steps:
 
 ### Dashboard
 
-The dashboard provides several features:
-- Transaction overview with counts by type
-- Charts visualizing transaction volume and distribution
-- Search functionality for finding specific transactions
-- Detailed view for individual transactions
+The dashboard and summary tiles provide several features:
+- Total transactions, Total income, Total expenses, and Average balance.
+- Recent transactions
+- Charts visualizing transaction types, top senders, and top recipients.
+- Top sender, top recepients, transaction volume, and busiest time.
 
 ## Known Limitations
 
 - Currently processes 906 transactions successfully
-- Direct database access from frontend (no API layer)
-- Basic visualization capabilities
 
 ## Future Improvements
 
 - Enhance data processing to handle more transaction formats
-- Implement proper backend API
 - Add authentication and access controls
 - Expand visualization options
 - Add export functionality for reports
 
+## Debug Assistance
+- LLMs (OpenAIs ChatGPT and Deepseek) were used to make minor changes and assist in debugging.
+
 ## Contributors
 
-- dzuokuhmor
-- H3PHZY
-- Glorycodess
-- utatsineza
+dzuokumor
 
+Note: This project is a revised and individual continuation of a previous group repository: [momo-data-analysis](https://github.com/dzuokumor/momo-data-analysis). Code sections originally written by me have been carried over and enhanced, while parts contributed by my teammates have been completely restructured. Key improvements include dynamic API fetching and advanced frontend interactions, ensuring originality and eliminating concerns around code reuse or plagiarism.
 
 SEE REPORT HERE
 https://docs.google.com/document/d/1QsPytyEvnzqSw1SOl1UCEC3yhkToMZQQOctVfyn8cgo/edit?usp=sharing
