@@ -21,6 +21,7 @@ This application parses XML SMS transaction data, categorizes messages into tran
   - Bank Transfers
   - Internet and Voice Bundle Purchases
 - **Dashboard**: Interactive visualization of transaction data
+                 Search funtionality by date, transaction type, and amount range.
 
 ## Tech Stack
 
@@ -122,6 +123,7 @@ The dashboard and summary tiles provide several features:
 - Recent transactions
 - Charts visualizing transaction types, top senders, and top recipients.
 - Top sender, top recepients, transaction volume, and busiest time.
+- Search functionality.
 
 ## Known Limitations
 
