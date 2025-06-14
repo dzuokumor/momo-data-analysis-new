@@ -35,6 +35,7 @@ This application parses XML SMS transaction data, categorizes messages into tran
 ### Prerequisites
 
 - Python 3.11+
+- Python interpreter configured in IDE
 - Web browser with JavaScript enabled
 - XML data file containing SMS transactions
 
@@ -45,13 +46,19 @@ This application parses XML SMS transaction data, categorizes messages into tran
    git clone https://github.com/yourusername/momo-data-analysis-new.git
    cd momo-data-analysis-new
    ```
+   
+2. Create Virtual Environment:
+   ```
+   python -m venv venv
+   .venv\Scripts\activate
+   ```
 
-2. Install Python dependencies:
+3. Install Python dependencies:
    ```
    pip install -r requirements.txt
    ```
 
-3. Prepare your data:
+4. Prepare your data:
    - Place your XML file in the `data/` directory
 
 ### Running the Application
