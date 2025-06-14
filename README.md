@@ -143,7 +143,7 @@ The dashboard and summary tiles provide several features:
 
 dzuokumor
 
-Note: This project is a revised and individual continuation of a previous group repository: [momo-data-analysis](https://github.com/dzuokumor/momo-data-analysis). Code sections originally written by me have been carried over and enhanced, while parts contributed by my teammates have been completely restructured. Key improvements include dynamic API fetching and advanced frontend interactions, ensuring originality and eliminating concerns around code reuse or plagiarism.
+Note: This project is a revised and individual continuation of a previous group repository: [momo-data-analysis](https://github.com/dzuokumor/momo-data-analysis). Code sections originally written by me have been carried over and enhanced, while parts contributed by my teammates have been completely restructured. Key improvements include dynamic backend fetching using Flask and advanced frontend interactions, ensuring originality and eliminating concerns around code reuse or plagiarism.
 
 SEE REPORT HERE
 https://docs.google.com/document/d/1QsPytyEvnzqSw1SOl1UCEC3yhkToMZQQOctVfyn8cgo/edit?usp=sharing
