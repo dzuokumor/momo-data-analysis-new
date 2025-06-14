@@ -678,6 +678,79 @@ body {
     margin: 0 auto;
 }
 
+.search-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 0 2rem 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 30px;
+}
+
+.search-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    align-items: end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #334155;
+}
+
+.filter-group input, 
+.filter-group select {
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.date-range, .amount-range {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.date-range input, .amount-range input {
+    flex: 1;
+    min-width: 0;
+}
+
+.search-button, .reset-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search-button {
+    background-color: #4f46e5;
+    color: white;
+}
+
+.reset-button {
+    background-color: #e2e8f0;
+    color: #334155;
+}
+
+.loading-spinner.large {
+    width: 40px;
+    height: 40px;
+    margin: 2rem auto;
+}
 @keyframes spin {
     to { transform: rotate(360deg); }
 }

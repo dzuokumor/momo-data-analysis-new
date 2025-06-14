@@ -13,25 +13,74 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, '..', 'frontend', 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, '..', 'frontend', 'static')
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 
-def _get_data_from_db(query):
+def _get_data_from_db(query, params=None):
     try:
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
-        cursor.execute(query)
+        cursor.execute(query, params or [])
         data = cursor.fetchall()
         conn.close()
 
         if data:
             return jsonify([dict(zip([column[0] for column in cursor.description], row)) for row in data])
-        else:
-            return jsonify([])
+        return jsonify([])
             
     except sqlite3.Error as e:
-        print(f"Database error: {e}")
-        return jsonify({"error": "Database error"}), 500
+        print(f"Database error in query '{query}': {e}")
+        return jsonify({
+            "error": "Database error",
+            "details": str(e)
+        }), 500
+    except ValueError as e:
+        print(f"Value error in query '{query}': {e}")
+        return jsonify({
+            "error": "Invalid parameter format",
+            "details": str(e)
+        }), 400
     except Exception as e:
-        print(f"Unexpected error: {e}")
-        return jsonify({"error": "An unexpected error occurred"}), 500
+        print(f"Unexpected error in query '{query}': {e}")
+        return jsonify({
+            "error": "An unexpected error occurred",
+            "details": str(e)
+        }), 500
+    
+
+@app.route('/api/transactions/search', methods=['GET'])
+def search_transactions():
+    try:
+        date_from = request.args.get('dateFrom')
+        date_to = request.args.get('dateTo')
+        min_amount = request.args.get('minAmount')
+        max_amount = request.args.get('maxAmount')
+        transaction_type = request.args.get('type')
+        
+        query = "SELECT * FROM transactions WHERE 1=1"
+        params = []
+        
+        if date_from:
+            query += " AND date(timestamp) >= ?"
+            params.append(date_from)
+        if date_to:
+            query += " AND date(timestamp) <= ?"
+            params.append(date_to)
+        if min_amount:
+            query += " AND amount >= ?"
+            params.append(float(min_amount))
+        if max_amount:
+            query += " AND amount <= ?"
+            params.append(float(max_amount))
+        if transaction_type:
+            query += " AND LOWER(type) = LOWER(?)"
+            params.append(transaction_type)
+        
+        query += " ORDER BY timestamp DESC LIMIT 200"
+        
+        return _get_data_from_db(query, tuple(params))
+        
+    except ValueError as e:
+        return jsonify({"error": "Invalid parameter format"}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/')
 def home():

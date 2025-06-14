@@ -34,7 +34,45 @@
             <header class="header">
                 <h1 class="page-title">Dashboard Overview</h1>
             </header>
-
+            <div class="search-section">
+                <div class="search-filters">
+                    <div class="filter-group">
+                        <label>Date Range</label>
+                        <div class="date-range">
+                            <input type="date" id="dateFrom" placeholder="From">
+                            <span>to</span>
+                            <input type="date" id="dateTo" placeholder="To">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Amount Range</label>
+                        <div class="amount-range">
+                            <input type="number" id="minAmount" placeholder="Min" min="0">
+                            <span>to</span>
+                            <input type="number" id="maxAmount" placeholder="Max" min="0">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Type</label>
+                        <select id="transactionType">
+                            <option value="">All Types</option>
+                            <option value="payment">Payment</option>
+                            <option value="deposit">Deposit</option>
+                            <option value="transfer">Transfer</option>
+                            <option value="receive">Received</option>
+                        </select>
+                    </div>
+                    
+                    <button id="searchButton" class="search-button">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <button id="resetButton" class="reset-button">
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                </div>
+            </div>
             <div class="summary-cards">
                 <div class="summary-card income" onclick="loadCardData('total-income')">
                     <div class="card-icon">
