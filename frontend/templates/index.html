@@ -3,88 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoMo Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    <script src="../static/script.js" defer></script>
+    <title>MoMo Analytics Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
 </head>
 <body>
-    <div class="sidebar">
-        <img src="{{ url_for('static', filename='images/Logo.png') }}" class="logo" alt="Logo">
-        <a href="{{ url_for('home') }}" class="nav-item">Dashboard</a>
-        <a href="{{ url_for('summary') }}" class="nav-item">Summary</a>
-        <a href="https://www.google.com" class="nav-item">Exit</a>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>MoMo Analytics</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('home') }}" class="nav-item active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{{ url_for('summary') }}" class="nav-item">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Summary</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1 class="page-title">Dashboard Overview</h1>
+            </header>
+
+            <div class="summary-cards">
+                <div class="summary-card income" onclick="loadCardData('total-income')">
+                    <div class="card-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">Total Income</span>
+                        <span class="card-value" id="total-income">Click to load</span>
+                    </div>
+                </div>
+                
+                <div class="summary-card expenses" onclick="loadCardData('total-expenses')">
+                    <div class="card-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">Total Expenses</span>
+                        <span class="card-value" id="total-expenses">Click to load</span>
+                    </div>
+                </div>
+                
+                <div class="summary-card transactions" onclick="loadCardData('total-transactions')">
+                    <div class="card-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">Transactions</span>
+                        <span class="card-value" id="total-transactions">Click to load</span>
+                    </div>
+                </div>
+                
+                <div class="summary-card balance" onclick="loadCardData('avg-balance')">
+                    <div class="card-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">Avg. Balance</span>
+                        <span class="card-value" id="avg-balance">Click to load</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-transactions">
+                <div class="section-header">
+                    <h3>Recent Transactions</h3>
+                </div>
+                <div class="transactions-list" id="transactions-list">
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>Transactions will load automatically</p>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <div class="main-content">
-        <!-- Header -->
-        <div class="header">
-            <div>
-                <h1 class="title">Expenses</h1>
-                <div class="subtitle">Dashboard</div>
-            </div>
-            <div class="filters">
-                <input type="text" placeholder="Search transactions">
-                <select>
-                    <option value="all">All Categories</option>
-                    <option value="in">Money In</option>
-                    <option value="out">Money Out</option>
-                </select>
-                <input type="date" placeholder="dd/mm/yy">
-            </div>
-        </div>
-
-        <div class="charts-grid">
-            <div class="chart-card">
-                <h3 class="chart-title">Monthly Expenses</h3>
-                <canvas id="expensesChart"></canvas>
-            </div>
-            <div class="chart-card">
-                <h3 class="chart-title">Expense Distribution</h3>
-                <canvas id="distributionChart"></canvas> <!-- Pie Chart -->
-            </div>
-        </div>
-
-        <!-- Transactions List -->
-        <div class="transactions">
-            <h3 class="chart-title">Recent Transactions</h3>
-            <div id="transactionsList">
-                <!-- Example Transactions -->
-                <div class="transaction-item">
-                    <div class="transaction-info">
-                        <div class="transaction-icon">S</div>
-                        <div class="transaction-details">
-                            <h4>Send Money</h4>
-                            <p>Wakuma</p>
-                        </div>
-                    </div>
-                    <div class="amount negative">-RWF 15000.00</div>
-                    <div class="time">02:45 AM</div>
-                </div>
-                <div class="transaction-item">
-                    <div class="transaction-info">
-                        <div class="transaction-icon">R</div>
-                        <div class="transaction-details">
-                            <h4>Received</h4>
-                            <p>Wakuma</p>
-                        </div>
-                    </div>
-                    <div class="amount positive">+RWF 40000.00</div>
-                    <div class="time">12:55 PM</div>
-                </div>
-                <div class="transaction-item">
-                    <div class="transaction-info">
-                        <div class="transaction-icon">A</div>
-                        <div class="transaction-details">
-                            <h4>Airtime</h4>
-                            <p>079****952</p>
-                        </div>
-                    </div>
-                    <div class="amount negative">-RWF 5000.00</div>
-                    <div class="time">10:26 AM</div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

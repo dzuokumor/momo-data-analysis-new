@@ -3,46 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoMo Summary</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script src="../static/script.js" defer></script>
+    <title>MoMo Analytics - Summary</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="sidebar">
-        <img src="{{ url_for('static', filename='images/Logo.png') }}" class="logo" alt="Logo">
-        <a href="{{ url_for('home') }}" class="nav-item">Dashboard</a>
-        <a href="{{ url_for('summary') }}" class="nav-item">Summary</a>
-        <a href="https://www.google.com" class="nav-item">Exit</a>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>MoMo Analytics</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('home') }}" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{{ url_for('summary') }}" class="nav-item active">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Summary</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1 class="page-title">Transaction Summary</h1>
+            </header>
+            <div class="metrics-section">
+                <div class="metrics-grid">
+                    <div class="metric-card" data-target="top-sender">
+                        <div class="metric-header">
+                            <i class="fas fa-users"></i>
+                            <h3>Top Sender</h3>
+                        </div>
+                        <div class="metric-value">Click to load</div>
+                        <div class="metric-subtext"></div>
+                    </div>
+                    
+                    <div class="metric-card" data-target="top-recipient">
+                        <div class="metric-header">
+                            <i class="fas fa-user-tag"></i>
+                            <h3>Top Recipient</h3>
+                        </div>
+                        <div class="metric-value">Click to load</div>
+                        <div class="metric-subtext"></div>
+                    </div>
+                    
+                    <div class="metric-card" data-target="transaction-volume">
+                        <div class="metric-header">
+                            <i class="fas fa-exchange-alt"></i>
+                            <h3>Transaction Volume</h3>
+                        </div>
+                        <div class="metric-value">Click to load</div>
+                    </div>
+                    
+                    <div class="metric-card" data-target="busiest-hour">
+                        <div class="metric-header">
+                            <i class="fas fa-clock"></i>
+                            <h3>Busiest Time</h3>
+                        </div>
+                        <div class="metric-value">Click to load</div>
+                    </div>
+                </div>
+            </div>
+            <div class="summary-charts">
+                <div class="chart-container">
+                    <h3>Top Senders by Amount</h3>
+                    <canvas id="topSendersChart"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Top Recipients by Transactions</h3>
+                    <canvas id="topRecipientsChart"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Transaction Type Distribution</h3>
+                    <canvas id="transactionTypesChart"></canvas>
+                </div>
+            </div>
+        </main>
     </div>
-
-    <div class="main-content">
-        <div class="header-card">
-            <h1 class="title">Summary</h1>
-            <div class="subtitle">Key Metrics Overview</div>
-        </div>
-
-        <div class="summary-cards">
-            <div class="summary-card">
-                <h3>Highest Recipient</h3>
-                <p class="summary-value" id="highest-sender">John Doe. Count: 143</p>
-            </div>
-
-            <div class="summary-card">
-                <h3>Total Volume</h3>
-                <p class="summary-value" id="total-volume">15823566.0</p>
-            </div>
-
-            <div class="summary-card">
-                <h3>Avg. Balance</h3>
-                <p class="summary-value" id="avg-size">33532.15121412803</p>
-            </div>
-
-            <div class="summary-card">
-                <h3>Total Transactions Sent</h3>
-                <p class="summary-value" id="total-transactions">906</p>
-            </div>
-
-        </div>
-    </div>
+    <script src="{{ url_for('static', filename='summary.js') }}"></script>
 </body>
 </html>
