@@ -143,9 +143,6 @@ The dashboard and summary tiles provide several features:
 - Expand visualization options
 - Add export functionality for reports
 
-## Debug Assistance
-- LLMs (OpenAIs ChatGPT and Deepseek) were used to make minor changes and assist in debugging.
-
 ## Contributors
 
 dzuokumor
