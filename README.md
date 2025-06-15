@@ -64,17 +64,17 @@ This application parses XML SMS transaction data, categorizes messages into tran
 ### Running the Application
 
 1. Process the data:
-   ```
-   python scripts/process_data.py --input data/your_xml_file.xml
-   ```
+   Navigate to the transaction_parser.py file
 
-2. Run the app.py file:
+2. Run the file
+
+3. Run the app.py file:
    ```
    Navigate to the project root.
    Run: python -m backend.app 
    ```
 
-3. Visit `http://localhost:5000` in your browser
+4. Visit `http://localhost:5000` in your browser
 
 ## Project Structure
 
@@ -149,5 +149,4 @@ dzuokumor
 
 Note: This project is a revised and individual continuation of a previous group repository: [momo-data-analysis](https://github.com/dzuokumor/momo-data-analysis). Code sections originally written by me have been carried over and enhanced, while parts contributed by my teammates have been completely restructured. Key improvements include dynamic backend fetching using Flask and advanced frontend interactions, ensuring originality and eliminating concerns around code reuse or plagiarism.
 
-SEE REPORT HERE
-https://docs.google.com/document/d/1QsPytyEvnzqSw1SOl1UCEC3yhkToMZQQOctVfyn8cgo/edit?usp=sharing
+SEE REPORT [HERE](https://drive.google.com/file/d/1BUBpaUhThlP38rS1R7fljQYcZ822JZlM/view?usp=sharing)
