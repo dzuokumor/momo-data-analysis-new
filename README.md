@@ -150,3 +150,4 @@ dzuokumor
 Note: This project is a revised and individual continuation of a previous group repository: [momo-data-analysis](https://github.com/dzuokumor/momo-data-analysis). Code sections originally written by me have been carried over and enhanced, while parts contributed by my teammates have been completely restructured. Key improvements include dynamic backend fetching using Flask and advanced frontend interactions, ensuring originality and eliminating concerns around code reuse or plagiarism.
 
 SEE REPORT [HERE](https://drive.google.com/file/d/1BUBpaUhThlP38rS1R7fljQYcZ822JZlM/view?usp=sharing)
+WATCH VIDEO DOCUMENTATION [HERE](https://drive.google.com/file/d/1G_anj3EJz7jwEilQBi9tMuyLdZnLIP7R/view?usp=sharing)
